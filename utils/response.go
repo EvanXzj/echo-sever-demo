@@ -7,7 +7,6 @@ type Response struct {
 
 // NewResponse : create a new response
 func NewResponse(k string, v interface{}) Response {
-
 	resp := Response{(map[string](interface{}){})}
 	resp.Payload[k] = v
 
