@@ -22,7 +22,7 @@ insert_final_newline = false
 indent_style = space
 
 [*.go]
-indent_size = 2
+indent_size = 4
 
 [Makefile]
 indent_style = tab
