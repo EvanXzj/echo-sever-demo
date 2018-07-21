@@ -40,7 +40,7 @@ func (migApi *migrationsAPI) register(mig migrater) {
 func (migApi *migrationsAPI) run() error {
 	toRun := map[string]migrater{}
 
-	for name,mig := range migApi.migs {
+	for name, mig := range migApi.migs {
 
 		migApi.count = migApi.count + 1
 
@@ -49,7 +49,7 @@ func (migApi *migrationsAPI) run() error {
 		migApi.db.Client.Find(&migModel)
 
 		// mark as pending if not found
-		if migModel.Done == false  {
+		if migModel.Done == false {
 			migApi.pending = migApi.pending + 1
 
 			toRun[name] = mig
@@ -60,7 +60,7 @@ func (migApi *migrationsAPI) run() error {
 	fmt.Printf("(%d of which are Pending Migrations)\n", migApi.pending)
 
 	// run pending migrations
-	for name ,mig := range toRun {
+	for name, mig := range toRun {
 
 		// log which migration is executing
 		fmt.Printf("Running Migration: %s\n", name)
@@ -75,11 +75,13 @@ func (migApi *migrationsAPI) run() error {
 
 		// save migration status if successful
 		migApi.db.Client.Create(&Migration{
-			Name: name,
-			Done: true,
-			CreatedAt: time.Now()
+			Name:      name,
+			Done:      true,
+			CreatedAt: time.Now(),
 		})
 	}
+
+	return nil
 }
 
 // TableName : use a special name for migrations table

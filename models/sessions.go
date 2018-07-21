@@ -15,23 +15,23 @@ type Session struct {
 	LastActivity time.Time `json:"last_activity"`
 }
 
-// SessionAPI : for interacting with session models
-type SessionAPI struct {
+// SessionsAPI : for interacting with session models
+type SessionsAPI struct {
 	db *gorm.DB
 }
 
 // Create : create a user session in the db
-func (sess SessionAPI) Create(user User, token, client string) {
+func (sess SessionsAPI) Create(user User, token, client string) {
 	sess.db.Create(&Session{
-		UserID: user.ID,
-		Token: token,
-		ClientIP: client,
-		LastActivity: time.Now()
+		UserID:       user.ID,
+		Token:        token,
+		ClientIP:     client,
+		LastActivity: time.Now(),
 	})
 }
 
 // ByToken : get a session by its token
-func (sess SessionAPI) ByToken(token uint) Session {
+func (sess SessionsAPI) ByToken(token uint) Session {
 	var session Session
 
 	sess.db.Find(&session, token)
@@ -40,6 +40,6 @@ func (sess SessionAPI) ByToken(token uint) Session {
 }
 
 // Activity :  update a sessions last_activity
-func (sess SessionAPI) Activity(s *Session) {
+func (sess SessionsAPI) Activity(s *Session) {
 	sess.db.Update(&s, "last_activity", time.Now())
 }

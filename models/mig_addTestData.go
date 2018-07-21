@@ -1,9 +1,9 @@
 package models
 
-type addTestData {}
+type addTestData struct{}
 
 func (m addTestData) up(db *DB) error {
-	db.Users.Create("admin","testFirst", "testLast", "testPassword")
+	db.Users.Create("admin", "testFirst", "testLast", "testPassword")
 
 	return nil
 }

@@ -39,7 +39,7 @@ func (u UsersAPI) Create(username, first, last, pwd string) {
 }
 
 // GetUserByID : get a user by its id
-func (u UsersAPI) GetUserByID(id int) User {
+func (u UsersAPI) GetUserByID(id uint) User {
 	var user User
 
 	u.db.Find(&user, id)
@@ -57,7 +57,7 @@ func (u UsersAPI) GetAll() []User {
 }
 
 // Login : attempt to login a user or error if login failed
-func (u UsersAPI) Login(username, pw string) (User, errror) {
+func (u UsersAPI) Login(username, pw string) (User, error) {
 	var user User
 
 	// look up user
@@ -67,6 +67,7 @@ func (u UsersAPI) Login(username, pw string) (User, errror) {
 		return user, fmt.Errorf("No user found by that username")
 	}
 
+	fmt.Printf("pw-----%v, %v", pw, username)
 	if crypt.Check(user.Password, pw) {
 		return user, nil
 	}
