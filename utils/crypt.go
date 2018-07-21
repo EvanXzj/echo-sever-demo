@@ -1,18 +1,23 @@
 package utils
 
-import "golang.org/x/crypto/bcrypt"
+import (
+	"fmt"
 
-type crypt struct {
+	"golang.org/x/crypto/bcrypt"
+)
+
+// Crypt ...
+type Crypt struct {
 	cost int
 }
 
 // NewCrypt : Get a new crypt struct for encryption and checking
-func NewCrypt() *crypt {
-	return &crypt{cost: bcrypt.DefaultCost}
+func NewCrypt() *Crypt {
+	return &Crypt{cost: bcrypt.DefaultCost}
 }
 
 // Hash : Encrypt a string
-func (c crypt) Hash(s string) (string, error) {
+func (c Crypt) Hash(s string) (string, error) {
 	hashed, err := bcrypt.GenerateFromPassword([]byte(s), c.cost)
 
 	if err != nil {
@@ -22,10 +27,11 @@ func (c crypt) Hash(s string) (string, error) {
 	return string(hashed), nil
 }
 
-// Check: check if a string matches an encrypted hash value
-func (c crypt) Check(hashed, pwd string) bool {
+// Check : check if a string matches an encrypted hash value
+func (c Crypt) Check(hashed, pwd string) bool {
 	err := bcrypt.CompareHashAndPassword([]byte(hashed), []byte(pwd))
 
+	fmt.Println(err)
 	if err != nil {
 		return false
 	}
