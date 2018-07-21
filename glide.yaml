@@ -1,2 +1,12 @@
 package: github.com/evanxzj/echo-server
-import: []
+import:
+- package: github.com/jinzhu/gorm
+  version: ^1.9.1
+  subpackages:
+  - dialects/postgres
+- package: github.com/labstack/echo
+  version: ^3.3.5
+- package: gopkg.in/matryer/try.v1
+  version: ^1.0.0
+- package: github.com/dgrijalva/jwt-go
+  version: ~3.2.0
